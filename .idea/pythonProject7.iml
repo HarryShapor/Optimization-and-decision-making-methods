@@ -5,7 +5,7 @@
       <excludeFolder url="file://$MODULE_DIR$/docker" />
       <excludeFolder url="file://$MODULE_DIR$/venv" />
     </content>
-    <orderEntry type="jdk" jdkName="Python 3.12 (MOPR)" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Python 3.12 (Method_optimizetion)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
 </module>

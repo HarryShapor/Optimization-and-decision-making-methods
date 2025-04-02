@@ -1,5 +1,4 @@
 
-
 def expert_assessments(matr_R, matr_el):
     '''Метод экспертных оценок'''
     matr_Z = []

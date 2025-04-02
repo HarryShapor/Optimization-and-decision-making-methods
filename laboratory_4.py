@@ -9,6 +9,7 @@ def selectionSort(arr):
         if (indexMin != i):
             arr[j], arr[indexMin] = arr[indexMin], arr[j]
             arrIndex[j], arrIndex[indexMin] = arrIndex[indexMin], arrIndex[j]
+        print(f'arr = {arr}')
     return arrIndex
 def the_backpack_problem():
     n = int(input(("Введите количество предметов:")))
@@ -47,7 +48,7 @@ def the_backpack_problem():
     print(f'Суммарная стоимость предметов в рюкзаке = {sumP}')
     print(f'Суммарный вес предметов в рюкзаке = {sumW_Pack}')
 
-the_backpack_problem()
-
-while True:
-    pass
+# the_backpack_problem()
+#
+# while True:
+#     pass
