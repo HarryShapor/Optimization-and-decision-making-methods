@@ -1,4 +1,3 @@
-
 def _create_tableau(n, m, c, A, b):
     tableau = [[0.0 for _ in range(n + m + 1)] for _ in range(m + 1)]
     for i in range(m):
@@ -13,7 +12,6 @@ def _create_tableau(n, m, c, A, b):
     return tableau
 
 def _find_pivot_column(tableau):
-        # Находим вводящий столбец (наименьший отрицательный элемент в последней строке)
     last_row = tableau[-1][:-1]
     min_val = min(last_row)
     if min_val < 0:
@@ -43,6 +41,27 @@ def _pivot(pivot_row, pivot_col,tableau, basis):
                 tableau[i][j] -= factor * tableau[pivot_row][j]
     basis[pivot_row] = pivot_col
 
+def round_solution(solution, A, b):
+    rounded_solution = [round(x) for x in solution]
+
+    for i in range(len(A)):
+        used = sum(A[i][j] * rounded_solution[j] for j in range(len(rounded_solution)))
+        if used > b[i]:
+            while used > b[i] and any(x > 0 for x in rounded_solution):
+                max_ratio = 0
+                max_index = 0
+                for j in range(len(rounded_solution)):
+                    if rounded_solution[j] > 0:
+                        ratio = A[i][j] / rounded_solution[j]
+                        if ratio > max_ratio:
+                            max_ratio = ratio
+                            max_index = j
+                
+                rounded_solution[max_index] -= 1
+                used = sum(A[i][j] * rounded_solution[j] for j in range(len(rounded_solution)))
+    
+    return rounded_solution
+
 def solve(A, b, c):
     m = len(A)
     n = len(A[0])
@@ -63,7 +82,6 @@ def solve(A, b, c):
             solution[j] = tableau[i][-1]
     return solution
 
-# Пример использования
 def main():
     c = [5.7, 12.6]
 
@@ -76,18 +94,24 @@ def main():
 
     solution = solve(A, b, c)
     if solution is not None:
-        print("Оптимальное решение:")
-        print(f"Количество столов: {solution[0]:.2f}")
-        print(f"Количество шкафов: {solution[1]:.2f}")
-        max_profit = sum(c[i] * solution[i] for i in range(len(solution)))
+        rounded_solution = round_solution(solution, A, b)
+        
+        print("Оптимальное решение (целые числа):")
+        print(f"Количество столов: {rounded_solution[0]}")
+        print(f"Количество шкафов: {rounded_solution[1]}")
+
+        max_profit = sum(c[i] * rounded_solution[i] for i in range(len(rounded_solution)))
         print(f"Максимальный доход: {max_profit:.2f}")
-        used_coniferous = A[0][0] * solution[0] + A[0][1] * solution[1]
-        used_deciduous = A[1][0] * solution[0] + A[1][1] * solution[1]
+
+        used_coniferous = A[0][0] * rounded_solution[0] + A[0][1] * rounded_solution[1]
+        used_deciduous = A[1][0] * rounded_solution[0] + A[1][1] * rounded_solution[1]
+        
         print("\nИспользование древесины:")
         print(f"Хвойные породы: {used_coniferous:.2f} м³ (из {b[0]} м³)")
         print(f"Лиственные породы: {used_deciduous:.2f} м³ (из {b[1]} м³)")
         remaining_coniferous = b[0] - used_coniferous
         remaining_deciduous = b[1] - used_deciduous
+        
         print("\nОстаток древесины:")
         print(f"Хвойные породы: {remaining_coniferous:.2f} м³")
         print(f"Лиственные породы: {remaining_deciduous:.2f} м³")
