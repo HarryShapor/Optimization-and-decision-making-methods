@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Black">
+<<<<<<< HEAD
     <option name="sdkName" value="Python 3.12 (Method_optimizetion)" />
   </component>
   <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.12 (Method_optimizetion)" project-jdk-type="Python SDK" />
+=======
+    <option name="sdkName" value="Python 3.12 (MOPR)" />
+  </component>
+  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.12 (MOPR)" project-jdk-type="Python SDK" />
+>>>>>>> 1074c6ac662f5b9d327a3c12d9a91da9011aabc4
 </project>
