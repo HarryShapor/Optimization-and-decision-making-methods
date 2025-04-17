@@ -51,3 +51,5 @@ def first_fit_decreasing():
     printContainers(arrContainer)
 
 first_fit_decreasing()
+while True:
+    pass

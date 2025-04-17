@@ -1,21 +1,17 @@
 def solve_furniture_problem():
     c = [5.7, 12.6]
     A = [
-        [0.21, 0.41],  # Коэффициенты для ограничения по хвойным породам
-        [0.35, 0.54]  # Коэффициенты для ограничения по лиственным породам
+        [0.21, 0.41],
+        [0.35, 0.54]
     ]
     b = [80, 45]
-    m = len(A)  # количество ограничений
-    n = len(c)  # количество переменных
-    # Создаем начальную симплекс-таблицу
+    m = len(A)
+    n = len(c)
     tableau = []
-    # Добавляем строку целевой функции
     tableau.append([-x for x in c] + [0])
-    # Добавляем строки ограничений
     for i in range(m):
         tableau.append(A[i] + [b[i]])
     while True:
-        # Находим индекс столбца с наименьшим отрицательным значением в строке целевой функции
         min_val = float('inf')
         pivot_col = -1
         for j in range(n):
@@ -38,16 +34,13 @@ def solve_furniture_problem():
             print("Задача не имеет решения")
             return None
         pivot_value = tableau[pivot_row][pivot_col]
-        # Нормализуем строку с ведущим элементом
         for j in range(len(tableau[pivot_row])):
             tableau[pivot_row][j] /= pivot_value
-        # Обновляем остальные строки
         for i in range(len(tableau)):
             if i != pivot_row:
                 factor = tableau[i][pivot_col]
                 for j in range(len(tableau[i])):
                     tableau[i][j] -= factor * tableau[pivot_row][j]
-    # Извлекаем решение
     solution = [0] * n
     for j in range(n):
         column = [tableau[i][j] for i in range(len(tableau))]
@@ -57,13 +50,12 @@ def solve_furniture_problem():
                     solution[j] = tableau[i][-1]
                     break
     if solution:
-        print("Оптимальное решение найдено!")
+        print("Оптимальное решение найдено.")
         print(f"Количество столов: {solution[0]:.0f} шт.")
         print(f"Количество шкафов: {solution[1]:.0f} шт.")
-        # Расчет прибыли
         profit = sum(c[i] * solution[i] for i in range(len(solution)))
         print(f"Максимальная прибыль: {profit:.0f} руб.")
-        # Анализ использования ресурсов
+
         used_resources = [sum(A[i][j] * solution[j] for j in range(len(solution))) for i in range(len(A))]
         print("\nИспользование ресурсов:")
         print(f"Использовано хвойной древесины: {used_resources[0]:.1f} куб.м из {b[0]} куб.м")
@@ -72,4 +64,6 @@ def solve_furniture_problem():
         print("Решение не найдено!")
 
 if __name__ == "__main__":
-    solve_furniture_problem() 
+    solve_furniture_problem()
+    while True:
+        pass
